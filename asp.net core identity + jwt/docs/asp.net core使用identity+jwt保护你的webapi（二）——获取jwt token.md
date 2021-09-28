@@ -209,7 +209,7 @@ public class UserController : ControllerBase
 
 ## service实现
 
-上面已经做好了基本的结构，接下来就是实现`UserService`中的`RegisterAsync`和`LoginAsync`方法了。
+上面已经做好了基本的结构，接下来就是实现`UserService`中的`RegisterAsync`和`LoginAsync`方法了。这里主要用到identity中的`UserManager`，`UserManager`封装了很多用户操作的现成方法。
 
 在`UserService`中先做一个私有方法，根据user创建jwt token；用户注册，登录成功后调用此方法得到token返回即可：
 

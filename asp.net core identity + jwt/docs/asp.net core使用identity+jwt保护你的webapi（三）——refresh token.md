@@ -371,7 +371,7 @@ refresh_token使用一次后，不可以再次使用：
 
 # 最后
 
-本篇完成了refresh token相关功能，代码较多，已上传至 [blogs/asp.net core identity + jwt/code at main · xiajingren/blogs (github.com)](https://github.com/xiajingren/blogs/tree/main/asp.net core identity %2B jwt/code)
+总结一下，上面的代码看似很多，其实完成的功能非常简单；就是在用户获取token时，后台生成一个与之对应的refresh token一并返回，同时将refresh token保存到数据库中；refresh token的存在就是为了当token过期时，能免登录刷新一次token。（refresh token只能使用一次，用户重要数据比如密码修改时，可以将refresh token置为失效，使用户重新登录）。代码已上传至 [blogs/asp.net core identity + jwt/code at main · xiajingren/blogs (github.com)](https://github.com/xiajingren/blogs/tree/main/asp.net core identity %2B jwt/code)
 
 
 
