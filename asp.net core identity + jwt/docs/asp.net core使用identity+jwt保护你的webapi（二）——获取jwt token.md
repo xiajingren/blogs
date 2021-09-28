@@ -52,6 +52,7 @@ public void ConfigureServices(IServiceCollection services)
         ValidateAudience = false,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecurityKey)),
+        ClockSkew = TimeSpan.Zero,
     };
     services
         .AddAuthentication(options =>
@@ -361,7 +362,7 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample.Api 
 
 ![image-20210927235203175](asp.net core使用identity+jwt保护你的webapi（二）——获取jwt token.assets/image-20210927235203175.png)
 
-这个规则在添加identity服务时可以配置：
+这个规则在注册identity服务时可以配置：
 
 ```c#
 services.AddIdentityCore<AppUser>(options =>
@@ -373,11 +374,13 @@ services.AddIdentityCore<AppUser>(options =>
 }).AddEntityFrameworkStores<AppDbContext>();
 ```
 
-注册成功后返回了token：
+`identityOptions`还支持一些其他配置。
+
+下面注册成功后返回了token：
 
 ![image-20210927235821636](asp.net core使用identity+jwt保护你的webapi（二）——获取jwt token.assets/image-20210927235821636.png)
 
-登录也没有问题：
+使用刚刚注册的账号测试登录，也没有问题：
 
 ![image-20210927235940868](asp.net core使用identity+jwt保护你的webapi（二）——获取jwt token.assets/image-20210927235940868.png)
 
@@ -393,7 +396,7 @@ services.AddIdentityCore<AppUser>(options =>
 >
 >[ASP.NET Core 简介 Identity | Microsoft Docs](https://docs.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?view=aspnetcore-5.0&tabs=visual-studio)
 >
->[Mohamad Lawand - DEV Community](
+>[Mohamad Lawand - DEV Community](https://dev.to/moe23/comments)
 
 
 

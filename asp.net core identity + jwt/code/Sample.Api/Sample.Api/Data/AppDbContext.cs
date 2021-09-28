@@ -6,6 +6,8 @@ namespace Sample.Api.Data
 {
     public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
     {
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
@@ -14,7 +16,7 @@ namespace Sample.Api.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            
+
             builder.Entity<AppUser>(b => { b.ToTable("AppUsers"); });
 
             builder.Entity<IdentityUserClaim<int>>(b => { b.ToTable("AppUserClaims"); });

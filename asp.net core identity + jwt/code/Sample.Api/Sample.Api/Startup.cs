@@ -92,6 +92,7 @@ namespace Sample.Api
                 ValidateAudience = false,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecurityKey)),
+                ClockSkew = TimeSpan.Zero,
             };
 
             services
@@ -101,7 +102,21 @@ namespace Sample.Api
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(options => { options.TokenValidationParameters = tokenValidationParameters; });
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = tokenValidationParameters;
+                    //options.Events = new JwtBearerEvents
+                    //{
+                    //    OnAuthenticationFailed = context =>
+                    //    {
+                    //        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                    //        {
+                    //            context.Response.Headers.Add("Token-Expired", "true");
+                    //        }
+                    //        return Task.CompletedTask;
+                    //    }
+                    //};
+                });
 
             services.AddScoped<IUserService, UserService>();
         }
